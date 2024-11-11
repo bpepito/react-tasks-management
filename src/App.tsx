@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Navigate, Route, Routes } from "react-router-dom";
+import LoginPage from "./components/LoginPage";
+import SignupPage from "./components/SignupPage";
+import "./App.css";
+import LayoutPage from "./pages/LayoutPage";
+import AllTasks from "./components/AllTasks";
+import UserTask from "./components/UserTask";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/sign-up" element={<SignupPage />} />
+      <Route path="/not-found" element={<NotFoundPage />} />
+      <Route path="*" element={<Navigate to="/not-found" />} />
+
+      {/* Route for dashboard with nested routes */}
+      <Route path="/dashboard" element={<LayoutPage />}>
+        <Route path="users" element={<AllTasks />} />
+        <Route path="my-task" element={<UserTask />} />
+      </Route>
+    </Routes>
   );
 }
 
